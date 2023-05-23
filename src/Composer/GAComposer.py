@@ -1,4 +1,4 @@
-from src.modules.Translator import SingleChromosome_StreamTranslator, PitchOnlyTranslator
+from src.modules.Translator import SingleChromosome_StreamTranslator, PitchOnlyTranslator, ChordOnlyTranslator
 from src.modules.GA import SingleChromosome_GARunner
 
 from music21 import note, clef, meter, stream
@@ -16,6 +16,10 @@ class GAComposer:
         elif code_type == 'pitchOnly':
             self.translator = PitchOnlyTranslator(**translator_args_dict)
             self.ga_runner = SingleChromosome_GARunner(encode_dim=self.translator.encode_dim, max_encode=self.translator.max_encode, obj_arg_info=self.translator.obj_arg_info, **ga_args_dict)
+        elif code_type == 'chordOnly':
+            self.translator = ChordOnlyTranslator(**translator_args_dict)
+            self.ga_runner = SingleChromosome_GARunner(encode_dim=self.translator.encode_dim, max_encode=self.translator.max_encode, obj_arg_info=self.translator.obj_arg_info, **ga_args_dict)
+           
         # TODO: implement other code type for multi-chromosome
         else:
             raise NotImplementedError('Code type {} is not implemented'.format(code_type))

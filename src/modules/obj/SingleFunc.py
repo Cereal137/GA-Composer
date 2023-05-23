@@ -141,5 +141,48 @@ def weighted_fitness(x: np.ndarray, rest_code: int, translator: Translator):
            ( -0.2 , not_intense)
         ]
     ])
-          
-          
+
+"""
+Fitness function for Blues
+"""      
+
+def Extract_Bar(x: np.ndarray):
+    return x.copy().reshape(-1, 4)
+
+
+@register("Blues_ChordProgression", -1)
+def Blues_ChordProgression(x: np.ndarray, rest_code: int, translator: Translator):
+    y = Extract_Bar(x)
+    Chord_Progresion = np.array(["C3", "C3", "C3", "C3", "F3", "F3", "C3", "C3", "G3", "F3", "C3", "C3", "G3", "F3", "C3", "C3"])
+    Chord_Progresion = np.array([translator.pitch2idx[pitch] for pitch in Chord_Progresion])
+    return np.sum(y[:,0] == Chord_Progresion)
+
+@register("More_Repeatiton", -1)
+def More_Repeatiton(x: np.ndarray, rest_code: int, translator: Translator):
+    y = Extract_Bar(x)
+    return np.mean([len(np.unique(bar)) for bar in y])
+
+@register("Blues_Swing", -1)
+def Blues_Swing(x: np.ndarray, rest_code: int, translator: Translator):
+    y = Extract_Bar(x)
+    Swing = np.array([0, 1, 0, 1])
+    return np.sum((bar-bar[0] == Swing).all() for bar in y)
+
+@register("Blues_ChromaticMove", -1)
+def Blues_ChromaticMove(x: np.ndarray, rest_code: int, translator: Translator):
+    y = Extract_Bar(x)
+    ChromaticMove = np.array([3, 2, 1, 0])
+    return np.sum((bar-bar[-1] == ChromaticMove).all() for bar in y)
+
+@register("weighted_b", -1)
+def weighted_fitness(x: np.ndarray, rest_code: int, translator: Translator):
+    return np.sum([
+        fun(x, rest_code, translator) * weight
+        for weight, fun in [
+           (  10.0 , Blues_ChordProgression ),
+           (  4.0 , Blues_Swing ),
+           (  1.0 , Blues_ChromaticMove ),
+           ( -0.3 , More_Repeatiton ),
+           (  0.3 , only_CDEGA )
+        ]
+    ])

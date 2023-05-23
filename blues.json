@@ -1,14 +1,14 @@
 {   
-    "job_name": "test",
+    "job_name": "Blues2",
     "out_path": "out",
-    "code_type": "pitchOnly",
+    "code_type": "chordOnly",
     "sample_num": 5,
     "lilypondPath": "./lilypond/bin/lilypond",
     "translator_args_dict": 
     {
-        "pitch_lowest": "F3", 
+        "pitch_lowest": "C3", 
         "pitch_highest": "G5", 
-        "bar_num": 4, 
+        "bar_num": 12, 
         "signature": "4/4", 
         "quarter_duration": 1
     },
@@ -18,7 +18,7 @@
         "max_early_stop": 10,
         "n_ind": 32,
         "fitness_threshold":  1e-4,
-        "obj_func_list": ["weighted"],
+        "obj_func_list": ["weighted_b"],
         "opt_algorithm_name": null,
         "logTras": null
     },
