@@ -1,12 +1,12 @@
 {   
-    "job_name": "Blues2",
+    "job_name": "Blues",
     "out_path": "out",
     "code_type": "chordOnly",
     "sample_num": 5,
     "lilypondPath": "./lilypond/bin/lilypond",
     "translator_args_dict": 
     {
-        "pitch_lowest": "C3", 
+        "pitch_lowest": "F3", 
         "pitch_highest": "G5", 
         "bar_num": 12, 
         "signature": "4/4", 
@@ -14,7 +14,7 @@
     },
     "ga_args_dict":
     {
-        "max_iters": 128,
+        "max_iters": 512,
         "max_early_stop": 10,
         "n_ind": 32,
         "fitness_threshold":  1e-4,
